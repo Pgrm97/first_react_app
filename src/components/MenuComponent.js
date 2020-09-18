@@ -1,30 +1,24 @@
-import React, {Component} from 'react';
+import React from 'react';
 import { Card, CardImg, CardImgOverlay, CardTitle } from 'reactstrap';
 
-class Menu extends Component {
-    //Always required when creating a component.
-    constructor(props) {
-        super(props);
-
-        //Stores properties related to a component.
-        this.state = {
-        }
-    }
-
-
-
-    render() {
-        //When an object is defined within a state, it must be called so when used. this.state...
-        const menu = this.props.dishes.map((dish) => {
-            //mt-5 means give top margin of 5 units.
-            return (
-                <div key={dish.id} className="col-12 col-md-5 m-1">
-                    <Card onClick={() => this.props.onClick(dish.id)}>
+    function RenderMenuItem({ dish, onClick }){
+        return (
+            <Card onClick={() => onClick(dish.id)}>
                         <CardImg width="100%" src={dish.image} alt={dish.name}/>
                         <CardImgOverlay>
                             <CardTitle>{dish.name}</CardTitle>
                         </CardImgOverlay>
-                    </Card>
+            </Card>
+        );
+    }
+
+    const Menu = (props) => {
+        //When an object is defined within a state, it must be called so when used. this.state...
+        const menu = props.dishes.map((dish) => {
+            //mt-5 means give top margin of 5 units.
+            return (
+                <div key={dish.id} className="col-12 col-md-5 m-1">
+                    <RenderMenuItem dish={dish} onClick={props.onClick}/>
                 </div>
             )
         });
@@ -36,6 +30,9 @@ class Menu extends Component {
             </div>
         );
     }
-}
+
+        
+    
+
 
 export default Menu;
